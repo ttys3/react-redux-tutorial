@@ -10,6 +10,13 @@ export class Post extends Component {
         this.props.getData();
     }
     render() {
+        if (this.props.err != null) {
+            return (
+                <div>
+                    <h3>error, request failed. {this.props.err.message}</h3>
+                </div>
+            )
+        }
         return (
             <ul className="list-group list-group-flush">
                 {this.props.articles.map(el => (
@@ -24,7 +31,8 @@ export class Post extends Component {
 
 function mapStateToProps(state) {
     return {
-        articles: state.remoteArticles.slice(0, 10)
+        articles: state.remoteArticles.slice(0, 10),
+        err: state.err
     };
 }
 

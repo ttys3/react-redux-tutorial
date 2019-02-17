@@ -2,7 +2,8 @@ import { ADD_ARTICLE } from "../constants/action-types";
 
 const initialState = {
   articles: [],
-  remoteArticles: []
+  remoteArticles: [],
+  err: null
 };
 
 function rootReducer(state = initialState, action) {
@@ -14,6 +15,11 @@ function rootReducer(state = initialState, action) {
   if (action.type === "DATA_LOADED") {
     return Object.assign({}, state, {
       remoteArticles: state.remoteArticles.concat(action.payload)
+    });
+  }
+  if (action.type === 'API_ERRORED') {
+    return Object.assign({}, state, {
+      err: action.payload
     });
   }
   return state;

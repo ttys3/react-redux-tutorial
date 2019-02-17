@@ -14,7 +14,13 @@ function* workerSaga() {
 }
 
 function getData() {
-  return fetch("https://jsonplaceholder.typicode.com/posts").then(response =>
-    response.json()
+  return fetch("https://jsonplaceholder.typicode.com/posts").then(response => {
+        if (!response.ok) {
+          console.log("fetch error");
+          console.log(response)
+          throw Error(response.status + " " + response.statusText);
+        }
+        return response.json()
+      }
   );
 }
